@@ -1,8 +1,13 @@
 import { Module } from '@nestjs/common';
+import { CropsController } from './crops.controller';
+import { CropsService } from './crops.service';
+import { PrismaModule } from '../prisma/prisma.module';
+import { AuthModule } from '../auth/auth.module';
 
-/**
- * CropsModule (Structural Foundation)
- * Reserved for Crop catalog and varieties management in Phase 2/3.
- */
-@Module({})
+@Module({
+  imports: [PrismaModule, AuthModule],
+  controllers: [CropsController],
+  providers: [CropsService],
+  exports: [CropsService],
+})
 export class CropsModule {}

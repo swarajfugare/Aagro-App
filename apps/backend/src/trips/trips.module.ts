@@ -1,8 +1,13 @@
 import { Module } from '@nestjs/common';
+import { TripsController } from './trips.controller';
+import { TripsService } from './trips.service';
+import { PrismaModule } from '../prisma/prisma.module';
+import { AuthModule } from '../auth/auth.module';
 
-/**
- * TripsModule (Structural Foundation)
- * Reserved for Trip planning, dispatch, and driver execution in Phase 7.
- */
-@Module({})
+@Module({
+  imports: [PrismaModule, AuthModule],
+  controllers: [TripsController],
+  providers: [TripsService],
+  exports: [TripsService],
+})
 export class TripsModule {}

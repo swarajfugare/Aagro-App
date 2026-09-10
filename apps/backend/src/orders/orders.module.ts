@@ -1,8 +1,13 @@
 import { Module } from '@nestjs/common';
+import { OrdersController } from './orders.controller';
+import { OrdersService } from './orders.service';
+import { PrismaModule } from '../prisma/prisma.module';
+import { AuthModule } from '../auth/auth.module';
 
-/**
- * OrdersModule (Structural Foundation)
- * Reserved for Order lifecycle and state machine management in Phase 6.
- */
-@Module({})
+@Module({
+  imports: [PrismaModule, AuthModule],
+  controllers: [OrdersController],
+  providers: [OrdersService],
+  exports: [OrdersService],
+})
 export class OrdersModule {}

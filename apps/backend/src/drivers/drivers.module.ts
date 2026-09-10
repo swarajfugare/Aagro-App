@@ -1,8 +1,13 @@
 import { Module } from '@nestjs/common';
+import { DriversController } from './drivers.controller';
+import { DriversService } from './drivers.service';
+import { PrismaModule } from '../prisma/prisma.module';
+import { AuthModule } from '../auth/auth.module';
 
-/**
- * DriversModule (Structural Foundation)
- * Reserved for Driver profile and KYC verification management in Phase 7.
- */
-@Module({})
+@Module({
+  imports: [PrismaModule, AuthModule],
+  controllers: [DriversController],
+  providers: [DriversService],
+  exports: [DriversService],
+})
 export class DriversModule {}

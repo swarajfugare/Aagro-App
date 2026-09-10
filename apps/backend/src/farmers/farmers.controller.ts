@@ -1,0 +1,72 @@
+import {
+  Controller,
+  Get,
+  Patch,
+  Param,
+  Query,
+  Body,
+  UseGuards,
+} from '@nestjs/common';
+import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { RoleName, VerificationStatus } from '@prisma/client';
+import { FarmersService } from './farmers.service';
+import { FirebaseAuthGuard } from '../auth/guards/firebase-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
+
+@ApiTags('Farmers')
+@ApiBearerAuth('firebase-auth')
+@Controller('farmers')
+@UseGuards(FirebaseAuthGuard, RolesGuard)
+export class FarmersController {
+  constructor(private readonly farmersService: FarmersService) {}
+
+  @Get()
+  @Roles(RoleName.ADMIN, RoleName.SUPER_ADMIN, RoleName.STAFF)
+  @ApiOperation({ summary: 'List all farmers with search, filtering, and pagination' })
+  @ApiQuery({ name: 'search', required: false })
+  @ApiQuery({ name: 'status', enum: VerificationStatus, required: false })
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  async findAll(
+    @Query('search') search?: string,
+    @Query('status') status?: VerificationStatus,
+    @Query('page') page = 1,
+    @Query('limit') limit = 50,
+  ) {
+    const skip = (Number(page) - 1) * Number(limit);
+    const data = await this.farmersService.findAll(search, status, skip, Number(limit));
+    return {
+      success: true,
+      data,
+      message: 'Farmers retrieved successfully',
+    };
+  }
+
+  @Get(':id')
+  @Roles(RoleName.ADMIN, RoleName.SUPER_ADMIN, RoleName.STAFF, RoleName.FARMER)
+  @ApiOperation({ summary: 'Get detailed farmer profile, farms, crops, and supply' })
+  async findOne(@Param('id') id: string) {
+    const data = await this.farmersService.findOne(id);
+    return {
+      success: true,
+      data,
+      message: 'Farmer details retrieved successfully',
+    };
+  }
+
+  @Patch(':id/verify')
+  @Roles(RoleName.ADMIN, RoleName.SUPER_ADMIN)
+  @ApiOperation({ summary: 'Update farmer KYC verification status' })
+  async updateVerification(
+    @Param('id') id: string,
+    @Body('kycStatus') kycStatus: VerificationStatus,
+  ) {
+    const data = await this.farmersService.updateVerification(id, kycStatus);
+    return {
+      success: true,
+      data,
+      message: 'Farmer verification updated successfully',
+    };
+  }
+}
