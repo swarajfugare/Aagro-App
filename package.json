@@ -1,0 +1,22 @@
+{
+  "name": "agri-supply-chain",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Agriculture Supply Chain Management System Monorepo",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "lint": "echo \"Phase 0: Linting will be configured in subsequent phases\"",
+    "test": "echo \"Phase 0: Testing suite will be configured in subsequent phases\""
+  },
+  "keywords": [
+    "agriculture",
+    "supply-chain",
+    "monorepo",
+    "logistics"
+  ],
+  "author": "",
+  "license": "UNLICENSED"
+}
