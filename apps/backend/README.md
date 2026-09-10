@@ -135,23 +135,30 @@ npm run start:prod
 
 - **Base API URL:** `http://localhost:3000/api/v1`
 - **Swagger / OpenAPI Documentation:** `http://localhost:3000/api/docs`
-- **System Health Check:** `http://localhost:3000/api/v1/health`
+- **System Health Check (Public):** `GET http://localhost:3000/api/v1/health`
+- **Current User Profile (Protected):** `GET http://localhost:3000/api/v1/auth/me`
+  - Header: `Authorization: Bearer <Firebase ID Token>`
 
-### Health Check Response:
+### Authentication Profile Response (`/api/v1/auth/me`):
 ```json
 {
   "success": true,
   "data": {
-    "status": "ok",
-    "timestamp": "2026-09-10T14:00:00.000Z",
-    "uptimeSeconds": 42,
-    "environment": "development",
-    "services": {
-      "database": "connected",
-      "firebase": "configured"
-    }
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "firebaseUid": "firebase-uid-12345",
+    "email": "farmer@example.com",
+    "phone": "+919876543210",
+    "fullName": "Ramesh Patil",
+    "avatarUrl": null,
+    "status": "ACTIVE",
+    "role": "FARMER",
+    "permissions": [
+      "crops:read",
+      "supply:create",
+      "supply:read"
+    ]
   },
-  "message": "Service is healthy"
+  "message": "Authenticated user profile retrieved successfully"
 }
 ```
 

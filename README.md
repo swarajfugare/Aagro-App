@@ -19,9 +19,9 @@ The platform connects four key stakeholders:
 
 ## 2. Current Development Phase
 
-**Current Phase:** `PHASE 2 — DATABASE FOUNDATION`
+**Current Phase:** `PHASE 3 — AUTHENTICATION + RBAC`
 
-> **Note:** At Phase 2, the production Prisma schema for MySQL is implemented (`apps/backend/prisma/schema.prisma`) with all core domain entities (Users, Roles, Permissions, Locations, Farmers, Farms, Crops, Harvests, Supply, Buyers, Requirements, Matches, Orders, Drivers, Vehicles, Trips, Pickups, Deliveries, Routes, GPS, Market Prices, Weather, Payments, Invoices, Notifications, Uploads, Support, and Audit Logs). **Client application interfaces and business logic workflows will be built in subsequent phases.**
+> **Note:** At Phase 3, the Firebase Authentication integration, NestJS `FirebaseAuthGuard`, server-side MySQL user lookup, `RolesGuard`, `PermissionsGuard`, and `/api/v1/auth/me` endpoint are implemented with strict security policies (no passwords stored in MySQL, zero client trust for roles/identities, typed request context). **Client application interfaces and business logic workflows will be built in subsequent phases.**
 
 ---
 
@@ -119,9 +119,9 @@ agri-supply-chain/
 Development proceeds incrementally in strictly controlled phases:
 1. **Phase 0:** Project Foundation *(Completed)*
 2. **Phase 1:** Backend Foundation *(Completed)*
-3. **Phase 2:** Database Foundation *(Completed / Current)*
-4. **Phase 3:** Authentication + RBAC *(Next)*
-5. **Phase 4:** Admin Panel Foundation
+3. **Phase 2:** Database Foundation *(Completed)*
+4. **Phase 3:** Authentication + RBAC *(Completed / Current)*
+5. **Phase 4:** Admin Panel Foundation *(Next)*
 6. **Phase 5:** Farmer App Implementation
 7. **Phase 6:** Buyer App Implementation
 8. **Phase 7:** Supply/Demand + Matching Engine

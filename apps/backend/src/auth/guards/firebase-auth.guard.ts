@@ -5,16 +5,30 @@ import {
   UnauthorizedException,
   Logger,
 } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
 import { Request } from 'express';
-import { FirebaseAdminService } from '../../firebase/firebase-admin.service';
+import { AuthService } from '../auth.service';
+import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
 
 @Injectable()
 export class FirebaseAuthGuard implements CanActivate {
   private readonly logger = new Logger(FirebaseAuthGuard.name);
 
-  constructor(private readonly firebaseAdminService: FirebaseAdminService) {}
+  constructor(
+    private readonly reflector: Reflector,
+    private readonly authService: AuthService,
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
+    const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+
+    if (isPublic) {
+      return true;
+    }
+
     const request = context.switchToHttp().getRequest<Request>();
     const authHeader = request.headers.authorization;
 
@@ -22,25 +36,20 @@ export class FirebaseAuthGuard implements CanActivate {
       throw new UnauthorizedException('Missing or invalid Authorization header. Expected Bearer token.');
     }
 
-    const token = authHeader.substring(7);
-
-    if (!this.firebaseAdminService.isReady()) {
-      this.logger.warn('FirebaseAuthGuard called, but Firebase Admin SDK is not configured in this environment.');
-      throw new UnauthorizedException('Authentication service is not configured on the server.');
+    const token = authHeader.substring(7).trim();
+    if (!token) {
+      throw new UnauthorizedException('Authentication token cannot be empty.');
     }
 
-    try {
-      const decodedToken = await this.firebaseAdminService.verifyIdToken(token);
-      (request as any).user = {
-        uid: decodedToken.uid,
-        email: decodedToken.email,
-        phoneNumber: decodedToken.phone_number,
-        firebaseToken: decodedToken,
-      };
-      return true;
-    } catch (error) {
-      this.logger.warn(`Firebase token verification failed: ${error instanceof Error ? error.message : error}`);
-      throw new UnauthorizedException('Invalid or expired authentication token.');
-    }
+    // 1. Verify token with Firebase Admin SDK
+    const decodedToken = await this.authService.verifyFirebaseToken(token);
+
+    // 2. Load application user, role, and permissions from MySQL
+    const authenticatedUser = await this.authService.getAuthenticatedUser(decodedToken.uid);
+
+    // 3. Attach authenticated user context to request
+    (request as any).user = authenticatedUser;
+
+    return true;
   }
 }
