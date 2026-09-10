@@ -23,6 +23,10 @@ storybook-static/
 .env.test
 .env.production
 !.env.example
+*service-account*.json
+firebase-credentials.json
+firebase-admin-key.json
+
 
 # Logs
 logs/
