@@ -19,9 +19,9 @@ The platform connects four key stakeholders:
 
 ## 2. Current Development Phase
 
-**Current Phase:** `PHASE 1 — BACKEND FOUNDATION`
+**Current Phase:** `PHASE 2 — DATABASE FOUNDATION`
 
-> **Note:** At Phase 1, the NestJS backend foundation is established (`apps/backend`) with TypeScript, Prisma ORM, MySQL configuration, Swagger documentation, health checks, Firebase Admin SDK integration base, security headers, global error filtering, and modular monolith module structures. **Domain business logic (Farmer, Buyer, Driver, Matching, Orders, Payments) will be built in subsequent phases.**
+> **Note:** At Phase 2, the production Prisma schema for MySQL is implemented (`apps/backend/prisma/schema.prisma`) with all core domain entities (Users, Roles, Permissions, Locations, Farmers, Farms, Crops, Harvests, Supply, Buyers, Requirements, Matches, Orders, Drivers, Vehicles, Trips, Pickups, Deliveries, Routes, GPS, Market Prices, Weather, Payments, Invoices, Notifications, Uploads, Support, and Audit Logs). **Client application interfaces and business logic workflows will be built in subsequent phases.**
 
 ---
 
@@ -118,15 +118,18 @@ agri-supply-chain/
 
 Development proceeds incrementally in strictly controlled phases:
 1. **Phase 0:** Project Foundation *(Completed)*
-2. **Phase 1:** Backend Foundation *(Completed / Current)*
-3. **Phase 2:** Admin Panel Foundation *(Next)*
-4. **Phase 3:** Farmer App Implementation
-5. **Phase 4:** Buyer App Implementation
-6. **Phase 5:** Supply-Demand Matching Engine
-7. **Phase 6:** Order Management & State Machine
-8. **Phase 7:** Driver App & Logistics Management
-9. **Phase 8:** OpenStreetMap Maps, GPS Tracking & Routing
-10. **Phase 9:** Firebase Cloud Messaging Notifications
-11. **Phase 10:** Admin Reports, Analytics & Audit Logging
-12. **Phase 11:** Security Hardening & End-to-End Testing
-13. **Phase 12:** Production Deployment to Hostinger
+2. **Phase 1:** Backend Foundation *(Completed)*
+3. **Phase 2:** Database Foundation *(Completed / Current)*
+4. **Phase 3:** Authentication + RBAC *(Next)*
+5. **Phase 4:** Admin Panel Foundation
+6. **Phase 5:** Farmer App Implementation
+7. **Phase 6:** Buyer App Implementation
+8. **Phase 7:** Supply/Demand + Matching Engine
+9. **Phase 8:** Order Management & State Machine
+10. **Phase 9:** Driver App & Logistics Management
+11. **Phase 10:** OpenStreetMap Maps, GPS Tracking & Routing
+12. **Phase 11:** Firebase Cloud Messaging Notifications
+13. **Phase 12:** Market Prices & Weather Advisories
+14. **Phase 13:** Admin Reports, Analytics & Audit Logging
+15. **Phase 14:** Security Hardening & End-to-End Testing
+16. **Phase 15:** Production Deployment to Hostinger
