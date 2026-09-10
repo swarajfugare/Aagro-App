@@ -19,9 +19,9 @@ The platform connects four key stakeholders:
 
 ## 2. Current Development Phase
 
-**Current Phase:** `PHASE 0 — PROJECT FOUNDATION`
+**Current Phase:** `PHASE 1 — BACKEND FOUNDATION`
 
-> **Note:** At Phase 0, only the repository architecture, monorepo structure, folder hierarchy, documentation layout, and workspace configurations are initialized. **No business logic, database models, authentication services, or UI components are implemented in this phase.**
+> **Note:** At Phase 1, the NestJS backend foundation is established (`apps/backend`) with TypeScript, Prisma ORM, MySQL configuration, Swagger documentation, health checks, Firebase Admin SDK integration base, security headers, global error filtering, and modular monolith module structures. **Domain business logic (Farmer, Buyer, Driver, Matching, Orders, Payments) will be built in subsequent phases.**
 
 ---
 
@@ -117,9 +117,9 @@ agri-supply-chain/
 ## 6. Development Approach
 
 Development proceeds incrementally in strictly controlled phases:
-1. **Phase 0:** Project Foundation *(Current)*
-2. **Phase 1:** Backend API + Database + Authentication Foundation
-3. **Phase 2:** Admin Panel Foundation
+1. **Phase 0:** Project Foundation *(Completed)*
+2. **Phase 1:** Backend Foundation *(Completed / Current)*
+3. **Phase 2:** Admin Panel Foundation *(Next)*
 4. **Phase 3:** Farmer App Implementation
 5. **Phase 4:** Buyer App Implementation
 6. **Phase 5:** Supply-Demand Matching Engine

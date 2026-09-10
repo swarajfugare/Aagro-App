@@ -1,0 +1,22 @@
+// Prisma Schema - Agriculture Supply Chain Management System
+// Phase 1: Foundation Schema for MySQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+/// Foundation model to verify database connectivity, schema migrations, and ORM operations
+model SystemHealth {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("system_health")
+}

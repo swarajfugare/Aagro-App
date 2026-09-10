@@ -66,6 +66,7 @@ temp/
 .cache/
 .turbo/
 .eslintcache
+*.tsbuildinfo
 
 # Preserved project specification
 !Goal.md
